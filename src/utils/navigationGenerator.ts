@@ -62,7 +62,8 @@ export const useNavigation = () => {
     acc[routeConfig.name as RouteNames] = createNavigationMethod(
       routeConfig,
       navigate,
-      hasPermission
+      // Type assertion to match the expected function signature
+      (permission: string) => hasPermission(permission as any)
     );
     return acc;
   }, {} as Record<RouteNames, NavigationMethod>);

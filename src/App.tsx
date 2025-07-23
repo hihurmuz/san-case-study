@@ -8,6 +8,9 @@ import Layout from "@/components/Layout";
 // Lazy load pages
 const LoginPage = React.lazy(() => import("@/pages/LoginPage"));
 const DashboardPage = React.lazy(() => import("@/pages/DashboardPage"));
+const PostsPage = React.lazy(() => import("@/pages/PostsPage"));
+const PostPage = React.lazy(() => import("@/pages/PostPage"));
+const CreatePostPage = React.lazy(() => import("@/pages/CreatePostPage"));
 const ForbiddenPage = React.lazy(() => import("@/pages/ForbiddenPage"));
 
 // Fallback loading component
@@ -41,6 +44,55 @@ function App() {
                   element={
                     <Layout>
                       <DashboardPage />
+                    </Layout>
+                  }
+                />
+              </Route>
+
+              <Route element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}>
+                <Route
+                  path="/posts"
+                  element={
+                    <Layout>
+                      <PostsPage />
+                    </Layout>
+                  }
+                />
+              </Route>
+
+              <Route element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}>
+                <Route
+                  path="/posts/:id"
+                  element={
+                    <Layout>
+                      <PostPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/posts/:id/edit"
+                  element={
+                    <Layout>
+                      <PostPage />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/posts/:id/comments"
+                  element={
+                    <Layout>
+                      <PostPage />
+                    </Layout>
+                  }
+                />
+              </Route>
+
+              <Route element={<ProtectedRoute permissions={["CREATE_POST"]} />}>
+                <Route
+                  path="/posts/create"
+                  element={
+                    <Layout>
+                      <CreatePostPage />
                     </Layout>
                   }
                 />

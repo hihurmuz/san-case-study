@@ -1,51 +1,205 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
 import { useNavigation } from "@/utils/navigationGenerator";
+import { usePermissions } from "@/hooks/usePermissions";
 
 const Header: React.FC = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
+  const { canCreatePost } = usePermissions();
   const nav = useNavigation();
+  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Helper to check if a link is active
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    if (window.confirm("Are you sure you want to logout?")) {
+      logout();
+      // Redirect is handled by AuthProvider
+    }
+  };
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm sticky top-0 z-10">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
+          {/* Logo and Desktop Navigation */}
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-blue-600">
+            <Link
+              to="/"
+              className="text-xl font-bold text-blue-600 flex items-center"
+            >
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </span>
               React SPA
             </Link>
 
             {isAuthenticated && (
-              <nav className="ml-8 space-x-4">
+              <nav className="hidden md:flex ml-8 space-x-6">
                 <Link
                   to={nav.dashboard.get()}
-                  className="text-gray-700 hover:text-blue-600 transition"
+                  className={`${
+                    isActive("/") && !isActive("/posts")
+                      ? "text-blue-600 font-medium"
+                      : "text-gray-700 hover:text-blue-600"
+                  } transition`}
                 >
                   Dashboard
                 </Link>
                 <Link
                   to={nav.posts.get()}
-                  className="text-gray-700 hover:text-blue-600 transition"
+                  className={`${
+                    isActive("/posts")
+                      ? "text-blue-600 font-medium"
+                      : "text-gray-700 hover:text-blue-600"
+                  } transition`}
                 >
                   Posts
                 </Link>
+                {canCreatePost() && (
+                  <Link
+                    to={nav.createPost.get()}
+                    className={`${
+                      isActive("/posts/create")
+                        ? "text-blue-600 font-medium"
+                        : "text-gray-700 hover:text-blue-600"
+                    } transition`}
+                  >
+                    Create Post
+                  </Link>
+                )}
               </nav>
             )}
           </div>
 
+          {/* User Info and Logout */}
           {isAuthenticated && (
-            <div>
+            <div className="hidden md:flex items-center space-x-4">
+              <div className="text-sm text-gray-600">
+                <span className="font-medium">{user?.name}</span>
+              </div>
               <button
-                onClick={() => logout()}
+                onClick={handleLogout}
                 className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition"
               >
                 Logout
               </button>
             </div>
           )}
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && isAuthenticated && (
+        <div className="md:hidden bg-white border-t border-gray-200 py-2">
+          <div className="container mx-auto px-4">
+            <nav className="flex flex-col space-y-3 py-3">
+              <Link
+                to={nav.dashboard.get()}
+                className={`${
+                  isActive("/") && !isActive("/posts")
+                    ? "text-blue-600 font-medium"
+                    : "text-gray-700"
+                } py-2`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to={nav.posts.get()}
+                className={`${
+                  isActive("/posts") && !isActive("/posts/create")
+                    ? "text-blue-600 font-medium"
+                    : "text-gray-700"
+                } py-2`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Posts
+              </Link>
+              {canCreatePost() && (
+                <Link
+                  to={nav.createPost.get()}
+                  className={`${
+                    isActive("/posts/create")
+                      ? "text-blue-600 font-medium"
+                      : "text-gray-700"
+                  } py-2`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Create Post
+                </Link>
+              )}
+              <div className="border-t border-gray-200 pt-3 mt-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600 font-medium">
+                    {user?.name}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded text-sm"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { TranslationProvider } from "@/providers/TranslationProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Layout from "@/components/Layout";
 
@@ -24,85 +25,93 @@ function App() {
   return (
     <QueryProvider>
       <AuthProvider>
-        <BrowserRouter>
-          <React.Suspense fallback={<LoadingFallback />}>
-            <Routes>
-              {/* Public routes */}
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/403" element={<ForbiddenPage />} />
+        <TranslationProvider>
+          <BrowserRouter>
+            <React.Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                {/* Public routes */}
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/403" element={<ForbiddenPage />} />
 
-              {/* Protected routes */}
-              <Route
-                element={
-                  <ProtectedRoute
-                    permissions={["VIEW_POSTS", "VIEW_COMMENTS"]}
+                {/* Protected routes */}
+                <Route
+                  element={
+                    <ProtectedRoute
+                      permissions={["VIEW_POSTS", "VIEW_COMMENTS"]}
+                    />
+                  }
+                >
+                  <Route
+                    path="/"
+                    element={
+                      <Layout>
+                        <DashboardPage />
+                      </Layout>
+                    }
                   />
-                }
-              >
-                <Route
-                  path="/"
-                  element={
-                    <Layout>
-                      <DashboardPage />
-                    </Layout>
-                  }
-                />
-              </Route>
+                </Route>
 
-              <Route element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}>
                 <Route
-                  path="/posts"
-                  element={
-                    <Layout>
-                      <PostsPage />
-                    </Layout>
-                  }
-                />
-              </Route>
+                  element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}
+                >
+                  <Route
+                    path="/posts"
+                    element={
+                      <Layout>
+                        <PostsPage />
+                      </Layout>
+                    }
+                  />
+                </Route>
 
-              <Route element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}>
                 <Route
-                  path="/posts/:id"
-                  element={
-                    <Layout>
-                      <PostPage />
-                    </Layout>
-                  }
-                />
-                <Route
-                  path="/posts/:id/edit"
-                  element={
-                    <Layout>
-                      <PostPage />
-                    </Layout>
-                  }
-                />
-                <Route
-                  path="/posts/:id/comments"
-                  element={
-                    <Layout>
-                      <PostPage />
-                    </Layout>
-                  }
-                />
-              </Route>
+                  element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}
+                >
+                  <Route
+                    path="/posts/:id"
+                    element={
+                      <Layout>
+                        <PostPage />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/posts/:id/edit"
+                    element={
+                      <Layout>
+                        <PostPage />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/posts/:id/comments"
+                    element={
+                      <Layout>
+                        <PostPage />
+                      </Layout>
+                    }
+                  />
+                </Route>
 
-              <Route element={<ProtectedRoute permissions={["CREATE_POST"]} />}>
                 <Route
-                  path="/posts/create"
-                  element={
-                    <Layout>
-                      <CreatePostPage />
-                    </Layout>
-                  }
-                />
-              </Route>
+                  element={<ProtectedRoute permissions={["CREATE_POST"]} />}
+                >
+                  <Route
+                    path="/posts/create"
+                    element={
+                      <Layout>
+                        <CreatePostPage />
+                      </Layout>
+                    }
+                  />
+                </Route>
 
-              {/* Default redirect to login */}
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            </Routes>
-          </React.Suspense>
-        </BrowserRouter>
+                {/* Default redirect to login */}
+                <Route path="*" element={<Navigate to="/login" replace />} />
+              </Routes>
+            </React.Suspense>
+          </BrowserRouter>
+        </TranslationProvider>
       </AuthProvider>
     </QueryProvider>
   );

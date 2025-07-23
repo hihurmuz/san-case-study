@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
-import { Permission } from "@/types";
+import type { Permission } from "@/types/index";
 
 interface PermissionCheckerProps {
   permissions?: Permission[];

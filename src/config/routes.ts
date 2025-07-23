@@ -1,4 +1,4 @@
-import { RouteConfig } from "@/types";
+import type { RouteConfig } from "@/types/index";
 
 // Route configuration - single source of truth for all application routes
 export const routeConfigs: RouteConfig[] = [

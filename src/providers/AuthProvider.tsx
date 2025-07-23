@@ -1,6 +1,7 @@
-import React, { createContext, useContext, ReactNode } from "react";
+import React, { createContext, useContext } from "react";
+import type { ReactNode } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { User, Permission } from "@/types";
+import type { User, Permission } from "@/types/index";
 
 // Dummy user data for authentication
 const DUMMY_USER: User = {
@@ -27,7 +28,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const queryClient = useQueryClient();
 
   // Use React Query to manage user state
-  const { data: user } = useQuery<User | null>({
+  const { data: user = null } = useQuery<User | null>({
     queryKey: ["user"],
     queryFn: () => {
       // Check if user data exists in localStorage for persistence

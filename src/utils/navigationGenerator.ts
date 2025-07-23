@@ -1,4 +1,4 @@
-import { RouteConfig, NavigationMethod } from "@/types";
+import type { RouteConfig, NavigationMethod } from "@/types/index";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
 import { routeConfigs, RouteNames } from "@/config/routes";

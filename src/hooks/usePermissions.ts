@@ -1,5 +1,5 @@
 import { useAuth } from "@/providers/AuthProvider";
-import { Permission } from "@/types";
+import type { Permission } from "@/types/index";
 
 // Custom hook for permission checking utilities
 export const usePermissions = () => {

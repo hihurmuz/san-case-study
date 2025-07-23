@@ -1,4 +1,5 @@
 import type { Post, Comment } from "@/types/index";
+import { logError } from "@/utils/errorHandling";
 
 // Base URL for JSONPlaceholder API
 const API_BASE_URL = "https://jsonplaceholder.typicode.com";
@@ -9,12 +10,25 @@ async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
     const response = await fetch(url, options);
 
     if (!response.ok) {
-      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+      // Create a more detailed error message
+      const errorMessage = `API Error: ${response.status} ${response.statusText}`;
+
+      // Try to parse error response body if available
+      try {
+        const errorData = await response.json();
+        throw new Error(errorData.message || errorData.error || errorMessage);
+      } catch (parseError) {
+        // If we can't parse the error response, use the default message
+        throw new Error(errorMessage);
+      }
     }
 
     return (await response.json()) as T;
   } catch (error) {
-    console.error("API fetch error:", error);
+    // Log the error with context
+    logError(error, `API fetch: ${url}`);
+
+    // Rethrow to let the caller handle it
     throw error;
   }
 }

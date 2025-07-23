@@ -1,7 +1,8 @@
 import type { RouteConfig, NavigationMethod } from "@/types/index";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
-import { routeConfigs, RouteNames } from "@/config/routes";
+import { routeConfigs } from "@/config/routes";
+import type { RouteNames } from "@/config/routes";
 
 // Helper function to replace route parameters with actual values
 const interpolateParams = (

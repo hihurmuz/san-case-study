@@ -6,7 +6,7 @@ import type { User, Permission } from "@/types/index";
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: () => void;
+  login: (userType: "viewer" | "admin") => void;
   logout: () => void;
   hasPermission: (permission: Permission) => boolean;
   hasAllPermissions: (permissions: Permission[]) => boolean;

@@ -23,24 +23,6 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Lazy loading error fallback
-const LazyLoadErrorFallback = () => (
-  <div className="flex flex-col items-center justify-center min-h-screen p-4">
-    <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg max-w-md w-full text-center">
-      <h2 className="text-lg font-medium mb-2">Failed to load component</h2>
-      <p className="text-sm">
-        There was an error loading this page. Please try refreshing the browser.
-      </p>
-      <button
-        onClick={() => window.location.reload()}
-        className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
-      >
-        Refresh Page
-      </button>
-    </div>
-  </div>
-);
-
 function App() {
   return (
     <ErrorBoundary>

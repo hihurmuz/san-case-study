@@ -24,9 +24,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { isAuthenticated, hasAllPermissions } = useAuth();
   const { loadTranslations, isReady } = useTranslationContext();
   const location = useLocation();
-  const [translationsLoaded, setTranslationsLoaded] = useState(
-    isReady(translations)
-  );
   const [isLoading, setIsLoading] = useState(
     translations.length > 0 && !isReady(translations)
   );
@@ -34,7 +31,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   // Load translations if needed
   useEffect(() => {
     if (translations.length === 0 || isReady(translations)) {
-      setTranslationsLoaded(true);
       setIsLoading(false);
       return;
     }
@@ -43,12 +39,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
     loadTranslations(translations)
       .then(() => {
-        setTranslationsLoaded(true);
+        // Translations loaded successfully
       })
       .catch((error) => {
         console.error("Failed to load translations:", error);
         // Continue anyway with fallbacks
-        setTranslationsLoaded(true);
       })
       .finally(() => {
         setIsLoading(false);

@@ -1,4 +1,5 @@
 import React from "react";
+import santsgLogo from "@/assets/santsg-logo-1.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/providers/AuthProvider";
@@ -37,7 +38,8 @@ const LoginPage: React.FC = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <img src={santsgLogo} alt="Giriş Sayfası Görseli" className="w-64 mb-8" />
       <div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-md max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">

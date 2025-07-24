@@ -55,8 +55,7 @@
   "comments": {
     "comments": "Kommentare",
     "noComments": "Keine Kommentare verfügbar",
-    "loadingComments": "Kommentare werden geladen...",
-    
+    "loadingComments": "Kommentare werden geladen..."
   },
   "dashboard": {
     "title": "Dashboard",

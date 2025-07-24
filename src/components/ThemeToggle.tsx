@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "@/providers/ThemeProvider";
 
 const ThemeToggle: React.FC = () => {
-  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   return (
     <div className="flex items-center space-x-2">
@@ -46,21 +46,6 @@ const ThemeToggle: React.FC = () => {
           </svg>
         )}
       </button>
-
-      {/* Dropdown for theme selection */}
-      <div className="relative">
-        <select
-          value={theme}
-          onChange={(e) =>
-            setTheme(e.target.value as "light" | "dark" | "system")
-          }
-          className="text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-2 py-1 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-          <option value="system">System</option>
-        </select>
-      </div>
     </div>
   );
 };

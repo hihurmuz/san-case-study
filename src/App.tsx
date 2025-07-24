@@ -11,6 +11,7 @@ import OfflineIndicator from "./components/OfflineIndicator";
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
 import ServiceWorkerUpdate from "./components/ServiceWorkerUpdate";
 import SkipLink from "./components/SkipLink";
+import { getPublicRoutes, getProtectedRoutes } from "./config/routes.config";
 import "./i18n"; // Initialize i18n
 import "./styles/accessibility.css"; // Accessibility styles
 
@@ -28,29 +29,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-// Lazy load pages with chunk names for better debugging
-const LoginPage = React.lazy(
-  () => import(/* webpackChunkName: "login" */ "./pages/LoginPage")
-);
-const DashboardPage = React.lazy(
-  () => import(/* webpackChunkName: "dashboard" */ "./pages/DashboardPage")
-);
-const PostsPage = React.lazy(
-  () => import(/* webpackChunkName: "posts" */ "./pages/PostsPage")
-);
-const PostPage = React.lazy(
-  () => import(/* webpackChunkName: "post-detail" */ "./pages/PostPage")
-);
-const CreatePostPage = React.lazy(
-  () => import(/* webpackChunkName: "create-post" */ "./pages/CreatePostPage")
-);
-const ForbiddenPage = React.lazy(
-  () => import(/* webpackChunkName: "error-pages" */ "./pages/ForbiddenPage")
-);
-const NotFoundPage = React.lazy(
-  () => import(/* webpackChunkName: "error-pages" */ "./pages/NotFoundPage")
-);
 
 // Fallback loading component
 const LoadingFallback = () => (
@@ -74,89 +52,51 @@ function App() {
                 <React.Suspense fallback={<LoadingFallback />}>
                   <Routes>
                     {/* Public routes */}
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/403" element={<ForbiddenPage />} />
-                    <Route
-                      path="/404"
-                      element={
-                        <Layout>
-                          <NotFoundPage />
-                        </Layout>
-                      }
-                    />
+                    {getPublicRoutes().map((route) => {
+                      const Component = route.renderer
+                        .component as React.ComponentType;
+                      return (
+                        <Route
+                          key={route.name}
+                          path={route.path}
+                          element={
+                            route.name === "notFound" ? (
+                              <Layout>
+                                <Component />
+                              </Layout>
+                            ) : (
+                              <Component />
+                            )
+                          }
+                        />
+                      );
+                    })}
 
                     {/* Protected routes */}
-                    <Route
-                      element={
-                        <ProtectedRoute
-                          permissions={["VIEW_POSTS", "VIEW_COMMENTS"]}
-                        />
-                      }
-                    >
-                      <Route
-                        path="/"
-                        element={
-                          <Layout>
-                            <DashboardPage />
-                          </Layout>
-                        }
-                      />
-                    </Route>
-
-                    <Route
-                      element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}
-                    >
-                      <Route
-                        path="/posts"
-                        element={
-                          <Layout>
-                            <PostsPage />
-                          </Layout>
-                        }
-                      />
-                    </Route>
-
-                    <Route
-                      element={<ProtectedRoute permissions={["VIEW_POSTS"]} />}
-                    >
-                      <Route
-                        path="/posts/:id"
-                        element={
-                          <Layout>
-                            <PostPage />
-                          </Layout>
-                        }
-                      />
-                      <Route
-                        path="/posts/:id/edit"
-                        element={
-                          <Layout>
-                            <PostPage />
-                          </Layout>
-                        }
-                      />
-                      <Route
-                        path="/posts/:id/comments"
-                        element={
-                          <Layout>
-                            <PostPage />
-                          </Layout>
-                        }
-                      />
-                    </Route>
-
-                    <Route
-                      element={<ProtectedRoute permissions={["CREATE_POST"]} />}
-                    >
-                      <Route
-                        path="/posts/create"
-                        element={
-                          <Layout>
-                            <CreatePostPage />
-                          </Layout>
-                        }
-                      />
-                    </Route>
+                    {getProtectedRoutes().map((route) => {
+                      const Component = route.renderer
+                        .component as React.ComponentType;
+                      return (
+                        <Route
+                          key={route.name}
+                          element={
+                            <ProtectedRoute
+                              permissions={route.permissions}
+                              translations={route.translations}
+                            />
+                          }
+                        >
+                          <Route
+                            path={route.path}
+                            element={
+                              <Layout>
+                                <Component />
+                              </Layout>
+                            }
+                          />
+                        </Route>
+                      );
+                    })}
 
                     {/* Default redirect to 404 */}
                     <Route path="*" element={<Navigate to="/404" replace />} />

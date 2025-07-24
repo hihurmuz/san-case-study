@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import { useCreatePost } from "@/hooks/usePosts";
 import { useNavigation } from "@/utils/navigationGenerator";
@@ -19,32 +17,53 @@ const CreatePostPage: React.FC = () => {
   const navigate = useNavigate();
   const nav = useNavigation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<CreatePostFormData>({
-    resolver: zodResolver(createPostSchema),
+  const [formData, setFormData] = useState<CreatePostFormData>({
+    title: "",
+    body: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = async (data: CreatePostFormData) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrors({});
+
+    const validationResult = createPostSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const newErrors: Record<string, string> = {};
+      validationResult.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          newErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setErrors(newErrors);
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const newPost = await createPostMutation.mutateAsync({
-        title: data.title,
-        body: data.body,
+        ...validationResult.data,
         userId: 1, // Using dummy user ID for JSONPlaceholder API
       });
-
-      // Navigate to the newly created post
       navigate(nav.post.get({ id: newPost.id }));
     } catch (error) {
-      setError("root", {
-        message:
+      setErrors({
+        root:
           error instanceof Error
             ? error.message
             : t("posts.createFailed", "Failed to create post"),
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -63,27 +82,31 @@ const CreatePostPage: React.FC = () => {
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {errors.root && (
             <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
-              {errors.root.message}
+              {errors.root}
             </div>
           )}
 
           <FormInput
             label={t("posts.postTitle")}
             placeholder={t("posts.postTitle")}
-            registration={register("title")}
-            error={errors.title?.message}
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            error={errors.title}
             required
           />
 
           <FormTextarea
             label={t("posts.content")}
             placeholder={t("posts.postContent")}
+            name="body"
+            value={formData.body}
+            onChange={handleChange}
             rows={8}
-            registration={register("body")}
-            error={errors.body?.message}
+            error={errors.body}
             required
           />
 

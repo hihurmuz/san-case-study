@@ -1,12 +1,13 @@
 import React from "react";
-import type { UseFormRegisterReturn } from "react-hook-form";
 
 interface FormInputProps {
   label: string;
+  name: string;
   type?: string;
   placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
-  registration: UseFormRegisterReturn;
   required?: boolean;
   className?: string;
 }
@@ -14,10 +15,12 @@ interface FormInputProps {
 const FormInput: React.FC<FormInputProps> = React.memo(
   ({
     label,
+    name,
     type = "text",
     placeholder,
+    value,
+    onChange,
     error,
-    registration,
     required = false,
     className = "",
   }) => {
@@ -29,8 +32,10 @@ const FormInput: React.FC<FormInputProps> = React.memo(
         </label>
         <input
           type={type}
+          name={name}
           placeholder={placeholder}
-          {...registration}
+          value={value}
+          onChange={onChange}
           className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100 transition ${
             error
               ? "border-red-300 dark:border-red-600"

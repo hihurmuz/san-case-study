@@ -1,8 +1,7 @@
-import type { RouteConfig, NavigationMethod } from "@/types/index";
+import type { NavigationMethod } from "@/types/index";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
-import { routeConfigs } from "@/config/routes";
-import type { RouteNames } from "@/config/routes";
+import { routesConfig, type RouteConfig } from "@/config/routes.config";
 
 // Helper function to replace route parameters with actual values
 const interpolateParams = (
@@ -58,15 +57,15 @@ export const useNavigation = () => {
   const { hasPermission } = useAuth();
 
   // Create navigation object with methods for each route
-  const navigationObject = routeConfigs.reduce((acc, routeConfig) => {
-    acc[routeConfig.name as RouteNames] = createNavigationMethod(
+  const navigationObject = routesConfig.reduce((acc, routeConfig) => {
+    acc[routeConfig.name] = createNavigationMethod(
       routeConfig,
       navigate,
       // Type assertion to match the expected function signature
       (permission: string) => hasPermission(permission as any)
     );
     return acc;
-  }, {} as Record<RouteNames, NavigationMethod>);
+  }, {} as Record<string, NavigationMethod>);
 
   return navigationObject;
 };

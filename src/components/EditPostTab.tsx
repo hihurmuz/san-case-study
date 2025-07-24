@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import { useUpdatePost } from "@/hooks/usePosts";
 import { editPostSchema, type EditPostFormData } from "@/schemas/postSchemas";
@@ -18,44 +16,63 @@ const EditPostTab: React.FC<EditPostTabProps> = ({ post }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const updatePostMutation = useUpdatePost();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<EditPostFormData>({
-    resolver: zodResolver(editPostSchema),
-    defaultValues: {
-      title: post.title,
-      body: post.body,
-    },
+  const [formData, setFormData] = useState<EditPostFormData>({
+    title: post.title,
+    body: post.body,
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = async (data: EditPostFormData) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrors({});
     setSuccessMessage("");
+
+    const validationResult = editPostSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const newErrors: Record<string, string> = {};
+      validationResult.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          newErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setErrors(newErrors);
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       await updatePostMutation.mutateAsync({
         id: post.id,
-        post: { title: data.title, body: data.body, userId: post.userId },
+        post: { ...validationResult.data, userId: post.userId },
       });
       setSuccessMessage(t("posts.postUpdatedSuccessfully"));
     } catch (error) {
-      setError("root", {
-        message:
+      setErrors({
+        root:
           error instanceof Error
             ? error.message
             : t("posts.updateFailed", "Failed to update post"),
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {errors.root && (
           <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
-            {errors.root.message}
+            {errors.root}
           </div>
         )}
 
@@ -68,17 +85,21 @@ const EditPostTab: React.FC<EditPostTabProps> = ({ post }) => {
         <FormInput
           label={t("posts.postTitle")}
           placeholder={t("posts.postTitle")}
-          registration={register("title")}
-          error={errors.title?.message}
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          error={errors.title}
           required
         />
 
         <FormTextarea
           label={t("posts.content")}
           placeholder={t("posts.postContent")}
+          name="body"
+          value={formData.body}
+          onChange={handleChange}
           rows={8}
-          registration={register("body")}
-          error={errors.body?.message}
+          error={errors.body}
           required
         />
 

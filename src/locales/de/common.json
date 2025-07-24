@@ -9,10 +9,17 @@
     "welcome": "Willkommen",
     "signIn": "Anmelden",
     "signInDescription": "Melden Sie sich an, um auf die React SPA mit Routing und Authentifizierung zuzugreifen",
+    "confirmLogout": "Möchten Sie sich wirklich abmelden?",
+    "logoutConfirmation": "Abmeldebestätigung",
+    "logoutMessage": "Ihre Sitzung wird beendet und Sie werden zur Anmeldeseite weitergeleitet.",
     "demoUser": "Demo Benutzer",
     "name": "Name",
     "permissions": "Berechtigungen",
     "signInAsJohnDoe": "Als John Doe anmelden",
+    "selectUser": "Benutzer Auswählen",
+    "viewer": "Betrachter",
+    "admin": "Administrator",
+    "signInAs": "Anmelden als",
     "demoDescription": "Dies ist eine Demo-Anwendung. Klicken Sie auf die Schaltfläche oben, um sich mit einem Dummy-Benutzer anzumelden.",
     "username": "Benutzername",
     "password": "Passwort",
@@ -48,27 +55,40 @@
   "comments": {
     "comments": "Kommentare",
     "noComments": "Keine Kommentare verfügbar",
-    "loadingComments": "Kommentare werden geladen..."
+    "loadingComments": "Kommentare werden geladen...",
+    
   },
   "dashboard": {
+    "title": "Dashboard",
     "recentPosts": "Neueste Beiträge",
+    "noPosts": "Keine Beiträge verfügbar",
+    "viewAllPosts": "Alle Beiträge anzeigen",
     "recentComments": "Neueste Kommentare",
-    "viewAll": "Alle Anzeigen",
-    "noRecentPosts": "Keine neuen Beiträge verfügbar",
-    "noRecentComments": "Keine neuen Kommentare verfügbar"
+    "by": "Von",
+    "noComments": "Keine Kommentare verfügbar"
+  },
+  "forbidden": {
+    "accessForbidden": "Zugriff Verboten",
+    "message": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen. Bitte kontaktieren Sie einen Administrator, wenn Sie glauben, dass dies ein Fehler ist.",
+    "goToDashboard": "Zum Dashboard",
+    "goBack": "Zurück"
   },
   "errors": {
     "pageNotFound": "Seite Nicht Gefunden",
     "pageNotFoundDescription": "Die gesuchte Seite wurde möglicherweise entfernt, umbenannt oder ist vorübergehend nicht verfügbar.",
     "goToHome": "Zur Startseite",
     "goBack": "Zurück",
-    "forbidden": "Verboten",
-    "forbiddenDescription": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.",
     "errorLoadingPosts": "Fehler beim Laden der Beiträge",
     "errorLoadingPost": "Fehler beim Laden des Beitrags",
     "postNotFound": "Beitrag nicht gefunden",
     "returnToPosts": "Zurück zu Beiträgen",
     "unknownError": "Unbekannter Fehler"
+  },
+  "forbidden": {
+    "accessForbidden": "Zugriff Verboten",
+    "message": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen. Bitte kontaktieren Sie einen Administrator, wenn Sie glauben, dass dies ein Fehler ist.",
+    "goToDashboard": "Zum Dashboard",
+    "goBack": "Zurück"
   },
   "common": {
     "loading": "Wird geladen...",

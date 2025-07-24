@@ -79,16 +79,6 @@ export const routesConfig: RouteConfig[] = [
     translations: ["posts"],
   },
   {
-    name: "post",
-    path: "/posts/:id",
-    renderer: {
-      type: "lazy",
-      component: PostPage,
-    },
-    permissions: ["VIEW_POSTS"],
-    translations: ["posts", "comments"],
-  },
-  {
     name: "postEdit",
     path: "/posts/:id/edit",
     renderer: {
@@ -117,6 +107,16 @@ export const routesConfig: RouteConfig[] = [
     },
     permissions: ["CREATE_POST"],
     translations: ["posts"],
+  },
+  {
+    name: "post",
+    path: "/posts/:id",
+    renderer: {
+      type: "lazy",
+      component: PostPage,
+    },
+    permissions: ["VIEW_POSTS"],
+    translations: ["posts", "comments"],
   },
 ];
 

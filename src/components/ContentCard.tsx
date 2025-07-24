@@ -18,8 +18,8 @@ const ContentCard: React.FC<ContentCardProps> = ({
   error = null,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 h-full">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">{title}</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 h-full">
+      <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">{title}</h2>
 
       {isLoading && (
         <div className="flex justify-center items-center py-8">

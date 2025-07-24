@@ -9,10 +9,17 @@
     "welcome": "Welcome",
     "signIn": "Sign In",
     "signInDescription": "Sign in to access the React SPA with routing and authentication",
-    "demoUser": "Demo User",
+    "confirmLogout": "Are you sure you want to log out?",
+    "logoutConfirmation": "Logout Confirmation",
+    "logoutMessage": "Your session will be terminated and you will be redirected to the login page.",
+    "demoUser": "Demo User",,
     "name": "Name",
     "permissions": "Permissions",
     "signInAsJohnDoe": "Sign in as John Doe",
+    "selectUser": "Select User",
+    "viewer": "Viewer",
+    "admin": "Admin",
+    "signInAs": "Sign in as",
     "demoDescription": "This is a demo application. Click the button above to sign in with a dummy user.",
     "username": "Username",
     "password": "Password",
@@ -48,27 +55,42 @@
   "comments": {
     "comments": "Comments",
     "noComments": "No comments available",
-    "loadingComments": "Loading comments..."
+    "loadingComments": "Loading comments...",
+    "errorLoadingComments": "Error loading comments",
+    "noCommentsAvailable": "No comments available for this post",
+    "commentsCount": "Comments ({{count}})"
   },
   "dashboard": {
+    "title": "Dashboard",
     "recentPosts": "Recent Posts",
+    "noPosts": "No posts available",
+    "viewAllPosts": "View all posts",
     "recentComments": "Recent Comments",
-    "viewAll": "View All",
-    "noRecentPosts": "No recent posts available",
-    "noRecentComments": "No recent comments available"
+    "by": "By",
+    "noComments": "No comments available"
+  },
+  "forbidden": {
+    "accessForbidden": "Access Forbidden",
+    "message": "You don't have permission to access this page. Please contact an administrator if you believe this is an error.",
+    "goToDashboard": "Go to Dashboard",
+    "goBack": "Go Back"
   },
   "errors": {
     "pageNotFound": "Page Not Found",
     "pageNotFoundDescription": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
     "goToHome": "Go to Home",
     "goBack": "Go Back",
-    "forbidden": "Forbidden",
-    "forbiddenDescription": "You don't have permission to access this page.",
     "errorLoadingPosts": "Error loading posts",
     "errorLoadingPost": "Error loading post",
     "postNotFound": "Post not found",
     "returnToPosts": "Return to posts",
     "unknownError": "Unknown error"
+  },
+  "forbidden": {
+    "accessForbidden": "Access Forbidden",
+    "message": "You don't have permission to access this page. Please contact an administrator if you believe this is an error.",
+    "goToDashboard": "Go to Dashboard",
+    "goBack": "Go Back"
   },
   "common": {
     "loading": "Loading...",

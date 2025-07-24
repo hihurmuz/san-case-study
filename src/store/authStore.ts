@@ -2,10 +2,16 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { User, Permission } from "@/types/index";
 
-// Dummy user data for authentication
-const DUMMY_USER: User = {
-  name: "John Doe",
-  permissions: ["VIEW_POSTS", "VIEW_COMMENTS"],
+// Dummy users data for authentication
+export const DUMMY_USERS: Record<string, User> = {
+  viewer: {
+    name: "John Doe",
+    permissions: ["VIEW_POSTS", "VIEW_COMMENTS"],
+  },
+  admin: {
+    name: "Jane Smith",
+    permissions: ["VIEW_POSTS", "VIEW_COMMENTS", "EDIT_POST", "CREATE_POST"],
+  },
 };
 
 interface AuthState {
@@ -13,7 +19,7 @@ interface AuthState {
   isAuthenticated: boolean;
 
   // Actions
-  login: () => void;
+  login: (userType?: keyof typeof DUMMY_USERS) => void;
   logout: () => void;
 
   // Selectors
@@ -31,9 +37,9 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isAuthenticated: false,
 
-      login: () => {
+      login: (userType: keyof typeof DUMMY_USERS = "viewer") => {
         set({
-          user: DUMMY_USER,
+          user: DUMMY_USERS[userType],
           isAuthenticated: true,
         });
       },

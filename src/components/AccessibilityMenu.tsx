@@ -88,11 +88,13 @@ const AccessibilityMenu: React.FC = React.memo(() => {
           stroke="currentColor"
           aria-hidden="true"
         >
+          <circle cx="12" cy="12" r="10" strokeWidth={2} />
+          <circle cx="12" cy="6" r="1.5" fill="currentColor" />
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+            d="M8 10h8M10 10v6l-1 2M14 10v6l1 2"
           />
         </svg>
       </button>

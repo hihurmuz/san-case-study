@@ -9,10 +9,17 @@
     "welcome": "Hoş Geldiniz",
     "signIn": "Giriş Yapın",
     "signInDescription": "Routing ve kimlik doğrulama özellikli React SPA'ya erişmek için giriş yapın",
+    "confirmLogout": "Çıkış yapmak istediğinizden emin misiniz?",
+    "logoutConfirmation": "Çıkış Onayı",
+    "logoutMessage": "Oturumunuz sonlandırılacak ve giriş sayfasına yönlendirileceksiniz.",
     "demoUser": "Demo Kullanıcı",
     "name": "İsim",
     "permissions": "İzinler",
     "signInAsJohnDoe": "John Doe olarak giriş yap",
+    "selectUser": "Kullanıcı Seçin",
+    "viewer": "Görüntüleyici",
+    "admin": "Yönetici",
+    "signInAs": "Giriş yap:",
     "demoDescription": "Bu bir demo uygulamadır. Dummy kullanıcı ile giriş yapmak için yukarıdaki butona tıklayın.",
     "username": "Kullanıcı Adı",
     "password": "Şifre",
@@ -48,27 +55,40 @@
   "comments": {
     "comments": "Yorumlar",
     "noComments": "Yorum bulunamadı",
-    "loadingComments": "Yorumlar yükleniyor..."
+    "loadingComments": "Yorumlar yükleniyor...",
+    
   },
   "dashboard": {
+    "title": "Ana Sayfa",
     "recentPosts": "Son Gönderiler",
+    "noPosts": "Gönderi bulunamadı",
+    "viewAllPosts": "Tüm gönderileri görüntüle",
     "recentComments": "Son Yorumlar",
-    "viewAll": "Tümünü Görüntüle",
-    "noRecentPosts": "Son gönderi bulunamadı",
-    "noRecentComments": "Son yorum bulunamadı"
+    "by": "Yazan",
+    "noComments": "Yorum bulunamadı"
+  },
+  "forbidden": {
+    "accessForbidden": "Erişim Yasaklandı",
+    "message": "Bu sayfaya erişim izniniz yok. Bunun bir hata olduğunu düşünüyorsanız lütfen bir yöneticiyle iletişime geçin.",
+    "goToDashboard": "Ana Sayfaya Git",
+    "goBack": "Geri Dön"
   },
   "errors": {
     "pageNotFound": "Sayfa Bulunamadı",
     "pageNotFoundDescription": "Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir.",
     "goToHome": "Ana Sayfaya Git",
     "goBack": "Geri Dön",
-    "forbidden": "Yasak",
-    "forbiddenDescription": "Bu sayfaya erişim izniniz yok.",
     "errorLoadingPosts": "Gönderiler yüklenirken hata oluştu",
     "errorLoadingPost": "Gönderi yüklenirken hata oluştu",
     "postNotFound": "Gönderi bulunamadı",
     "returnToPosts": "Gönderilere dön",
     "unknownError": "Bilinmeyen hata"
+  },
+  "forbidden": {
+    "accessForbidden": "Erişim Yasaklandı",
+    "message": "Bu sayfaya erişim izniniz yok. Bunun bir hata olduğunu düşünüyorsanız lütfen bir yöneticiyle iletişime geçin.",
+    "goToDashboard": "Ana Sayfaya Git",
+    "goBack": "Geri Dön"
   },
   "common": {
     "loading": "Yükleniyor...",

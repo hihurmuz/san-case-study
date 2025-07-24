@@ -1,5 +1,14 @@
 # Senior Front-end Developer Assignment
 
+## Live Demo
+
+[Vercel Deployment](https://san-case-study-6urtf0559-hihurmuzs-projects.vercel.app/login)
+
+## Screenshots
+
+![Screenshot 1](docs/images/san-ss1.png)
+![Screenshot 2](docs/images/san-ss2.png)
+
 This project is a client-side-only Single Page Application (SPA) built with a clean, easy-to-understand architecture. It uses modern React technologies including Vite, TypeScript, React Router v6, and TanStack React Query v5. The core focus is on implementing a robust routing system with user access control and internationalization support, using JSONPlaceholder API for backend simulation.
 
 ## Features

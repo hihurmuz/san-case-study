@@ -52,7 +52,14 @@ function App() {
                     {/* Public routes */}
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/403" element={<ForbiddenPage />} />
-                    <Route path="/404" element={<NotFoundPage />} />
+                    <Route
+                      path="/404"
+                      element={
+                        <Layout>
+                          <NotFoundPage />
+                        </Layout>
+                      }
+                    />
 
                     {/* Protected routes */}
                     <Route

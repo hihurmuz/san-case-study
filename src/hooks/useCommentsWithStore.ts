@@ -52,15 +52,8 @@ export const useCommentsWithStore = () => {
 
 // Hook for fetching comments for a specific post with Zustand integration
 export const usePostCommentsWithStore = (postId: number) => {
-  const {
-    commentsByPost,
-    isLoading,
-    error,
-    setPostComments,
-    setLoading,
-    setError,
-    getCommentsByPostId,
-  } = useCommentsStore();
+  const { setPostComments, setLoading, setError, getCommentsByPostId } =
+    useCommentsStore();
 
   const queryResult = useQuery({
     queryKey: ["comments", "post", postId],

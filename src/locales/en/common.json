@@ -125,5 +125,11 @@
     "activateHelp": "Activate element",
     "escapeHelp": "Close menu/dialog",
     "skipToMain": "Skip to main content"
+  },
+  "footer": {
+    "copyright": "React SPA with Routing & Auth",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "help": "Help"
   }
 }

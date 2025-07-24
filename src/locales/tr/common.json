@@ -125,5 +125,11 @@
     "activateHelp": "Öğeyi etkinleştir",
     "escapeHelp": "Menü/diyalogu kapat",
     "skipToMain": "Ana içeriğe geç"
+  },
+  "footer": {
+    "copyright": "React SPA Yönlendirme ve Kimlik Doğrulama",
+    "terms": "Kullanım Şartları",
+    "privacy": "Gizlilik Politikası",
+    "help": "Yardım"
   }
 }

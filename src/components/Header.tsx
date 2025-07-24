@@ -82,7 +82,7 @@ const Header: React.FC = React.memo(() => {
             </Link>
 
             {isAuthenticated && (
-              <nav className="hidden md:flex ml-8 space-x-6">
+              <nav className="hidden md:flex ml-8 space-x-6 h-full items-center">
                 {navigationLinks.map((link) => (
                   <Link
                     key={link.to}
@@ -91,7 +91,7 @@ const Header: React.FC = React.memo(() => {
                       link.isActive
                         ? "text-blue-600 dark:text-blue-400 font-medium"
                         : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    } transition`}
+                    } transition flex items-center h-full`}
                   >
                     {link.label}
                   </Link>

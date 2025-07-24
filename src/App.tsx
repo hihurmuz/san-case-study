@@ -7,7 +7,12 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import ErrorBoundary from "./components/ErrorBoundary";
+import OfflineIndicator from "./components/OfflineIndicator";
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
+import ServiceWorkerUpdate from "./components/ServiceWorkerUpdate";
+import SkipLink from "./components/SkipLink";
 import "./i18n"; // Initialize i18n
+import "./styles/accessibility.css"; // Accessibility styles
 
 // Create a client
 const queryClient = new QueryClient({
@@ -62,6 +67,10 @@ function App() {
           <ThemeProvider>
             <TranslationProvider>
               <BrowserRouter>
+                <SkipLink />
+                <OfflineIndicator />
+                <PWAInstallPrompt />
+                <ServiceWorkerUpdate />
                 <React.Suspense fallback={<LoadingFallback />}>
                   <Routes>
                     {/* Public routes */}

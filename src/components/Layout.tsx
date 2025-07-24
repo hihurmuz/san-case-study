@@ -11,7 +11,9 @@ const Layout: React.FC<LayoutProps> = React.memo(({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       <Header />
-      <main className="flex-grow py-6">{children}</main>
+      <main id="main-content" className="flex-grow py-6" tabIndex={-1}>
+        {children}
+      </main>
       <Footer />
     </div>
   );

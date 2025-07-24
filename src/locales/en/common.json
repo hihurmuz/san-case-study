@@ -89,5 +89,41 @@
     "passwordRequired": "Password is required",
     "invalidCredentials": "Invalid credentials",
     "loginFailed": "Login failed"
+  },
+  "offline": {
+    "youAreOffline": "You are offline",
+    "backOnline": "Back online",
+    "workingOffline": "Working offline",
+    "syncWhenOnline": "Will sync when online"
+  },
+  "pwa": {
+    "installTitle": "Install App",
+    "installDescription": "Install this app on your device for a better experience",
+    "install": "Install",
+    "dismiss": "Dismiss",
+    "updateAvailable": "Update Available",
+    "updateDescription": "A new version is available",
+    "update": "Update",
+    "later": "Later",
+    "offlineReady": "App ready to work offline"
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "openMenu": "Open accessibility menu",
+    "highContrast": "High Contrast",
+    "highContrastOn": "High contrast mode enabled",
+    "highContrastOff": "High contrast mode disabled",
+    "fontSize": "Font Size",
+    "fontSmall": "Small",
+    "fontNormal": "Normal",
+    "fontLarge": "Large",
+    "fontExtraLarge": "Extra Large",
+    "fontSizeChanged": "Font size changed",
+    "keyboardShortcuts": "Keyboard Shortcuts",
+    "tabHelp": "Navigate forward",
+    "shiftTabHelp": "Navigate backward",
+    "activateHelp": "Activate element",
+    "escapeHelp": "Close menu/dialog",
+    "skipToMain": "Skip to main content"
   }
 }

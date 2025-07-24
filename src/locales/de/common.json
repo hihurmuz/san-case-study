@@ -89,5 +89,41 @@
     "passwordRequired": "Passwort ist erforderlich",
     "invalidCredentials": "Ungültige Anmeldedaten",
     "loginFailed": "Anmeldung fehlgeschlagen"
+  },
+  "offline": {
+    "youAreOffline": "Sie sind offline",
+    "backOnline": "Wieder online",
+    "workingOffline": "Offline arbeiten",
+    "syncWhenOnline": "Wird synchronisiert, wenn online"
+  },
+  "pwa": {
+    "installTitle": "App Installieren",
+    "installDescription": "Installieren Sie diese App auf Ihrem Gerät für eine bessere Erfahrung",
+    "install": "Installieren",
+    "dismiss": "Schließen",
+    "updateAvailable": "Update Verfügbar",
+    "updateDescription": "Eine neue Version ist verfügbar",
+    "update": "Aktualisieren",
+    "later": "Später",
+    "offlineReady": "App bereit für Offline-Betrieb"
+  },
+  "accessibility": {
+    "title": "Barrierefreiheit",
+    "openMenu": "Barrierefreiheits-Menü öffnen",
+    "highContrast": "Hoher Kontrast",
+    "highContrastOn": "Hoher Kontrast-Modus aktiviert",
+    "highContrastOff": "Hoher Kontrast-Modus deaktiviert",
+    "fontSize": "Schriftgröße",
+    "fontSmall": "Klein",
+    "fontNormal": "Normal",
+    "fontLarge": "Groß",
+    "fontExtraLarge": "Sehr Groß",
+    "fontSizeChanged": "Schriftgröße geändert",
+    "keyboardShortcuts": "Tastenkürzel",
+    "tabHelp": "Vorwärts navigieren",
+    "shiftTabHelp": "Rückwärts navigieren",
+    "activateHelp": "Element aktivieren",
+    "escapeHelp": "Menü/Dialog schließen",
+    "skipToMain": "Zum Hauptinhalt springen"
   }
 }

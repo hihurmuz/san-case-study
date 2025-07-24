@@ -89,5 +89,41 @@
     "passwordRequired": "Şifre gereklidir",
     "invalidCredentials": "Geçersiz kimlik bilgileri",
     "loginFailed": "Giriş başarısız"
+  },
+  "offline": {
+    "youAreOffline": "Çevrimdışısınız",
+    "backOnline": "Tekrar çevrimiçi",
+    "workingOffline": "Çevrimdışı çalışıyor",
+    "syncWhenOnline": "Çevrimiçi olduğunuzda senkronize edilecek"
+  },
+  "pwa": {
+    "installTitle": "Uygulamayı Yükle",
+    "installDescription": "Daha iyi bir deneyim için bu uygulamayı cihazınıza yükleyin",
+    "install": "Yükle",
+    "dismiss": "Kapat",
+    "updateAvailable": "Güncelleme Mevcut",
+    "updateDescription": "Yeni bir sürüm mevcut",
+    "update": "Güncelle",
+    "later": "Sonra",
+    "offlineReady": "Uygulama çevrimdışı çalışmaya hazır"
+  },
+  "accessibility": {
+    "title": "Erişilebilirlik",
+    "openMenu": "Erişilebilirlik menüsünü aç",
+    "highContrast": "Yüksek Kontrast",
+    "highContrastOn": "Yüksek kontrast modu etkinleştirildi",
+    "highContrastOff": "Yüksek kontrast modu devre dışı bırakıldı",
+    "fontSize": "Yazı Boyutu",
+    "fontSmall": "Küçük",
+    "fontNormal": "Normal",
+    "fontLarge": "Büyük",
+    "fontExtraLarge": "Çok Büyük",
+    "fontSizeChanged": "Yazı boyutu değiştirildi",
+    "keyboardShortcuts": "Klavye Kısayolları",
+    "tabHelp": "İleri git",
+    "shiftTabHelp": "Geri git",
+    "activateHelp": "Öğeyi etkinleştir",
+    "escapeHelp": "Menü/diyalogu kapat",
+    "skipToMain": "Ana içeriğe geç"
   }
 }

@@ -6,6 +6,8 @@ import { useNavigation } from "@/utils/navigationGenerator";
 import { usePermissions } from "@/hooks/usePermissions";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
+import AccessibilityMenu from "./AccessibilityMenu";
+import santsgLogo from "/src/assets/santsg-logo-1.svg";
 
 const Header: React.FC = React.memo(() => {
   const { t } = useTranslation();
@@ -71,26 +73,12 @@ const Header: React.FC = React.memo(() => {
           {/* Logo and Desktop Navigation */}
           <div className="flex items-center">
             <Link
-              to="/"
+              to="https://www.santsg.com/tr/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-xl font-bold text-blue-600 dark:text-blue-400 flex items-center"
             >
-              <span className="mr-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-              </span>
-              React SPA
+              <img src={santsgLogo} alt="SanTSG Logo" className="h-8" />
             </Link>
 
             {isAuthenticated && (
@@ -112,10 +100,11 @@ const Header: React.FC = React.memo(() => {
             )}
           </div>
 
-          {/* Theme Toggle, Language Selector and User Info */}
+          {/* Theme Toggle, Language Selector, Accessibility and User Info */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             <LanguageSelector />
+            <AccessibilityMenu />
             {isAuthenticated && (
               <>
                 <div className="text-sm text-gray-600 dark:text-gray-300">
@@ -135,6 +124,7 @@ const Header: React.FC = React.memo(() => {
           <div className="md:hidden flex items-center space-x-2">
             <ThemeToggle />
             <LanguageSelector />
+            <AccessibilityMenu />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"

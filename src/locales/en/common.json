@@ -12,7 +12,7 @@
     "confirmLogout": "Are you sure you want to log out?",
     "logoutConfirmation": "Logout Confirmation",
     "logoutMessage": "Your session will be terminated and you will be redirected to the login page.",
-    "demoUser": "Demo User",,
+    "demoUser": "Demo User",
     "name": "Name",
     "permissions": "Permissions",
     "signInAsJohnDoe": "Sign in as John Doe",

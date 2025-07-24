@@ -55,8 +55,7 @@
   "comments": {
     "comments": "Yorumlar",
     "noComments": "Yorum bulunamadı",
-    "loadingComments": "Yorumlar yükleniyor...",
-    
+    "loadingComments": "Yorumlar yükleniyor..."
   },
   "dashboard": {
     "title": "Ana Sayfa",

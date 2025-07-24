@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { usePosts, useDeletePost } from "@/hooks/usePosts";
 import { useNavigation } from "@/utils/navigationGenerator";
@@ -11,20 +11,28 @@ const PostsPage: React.FC = () => {
   const nav = useNavigation();
   const { canEditPost } = usePermissions();
 
-  const handleDelete = async (id: number) => {
-    if (window.confirm("Are you sure you want to delete this post?")) {
-      try {
-        await deletePostMutation.mutateAsync(id);
-        alert("Post deleted successfully");
-      } catch (error) {
-        alert(
-          `Error deleting post: ${
-            error instanceof Error ? error.message : "Unknown error"
-          }`
-        );
+  const handleDelete = useCallback(
+    async (id: number) => {
+      if (window.confirm("Are you sure you want to delete this post?")) {
+        try {
+          await deletePostMutation.mutateAsync(id);
+          alert("Post deleted successfully");
+        } catch (error) {
+          alert(
+            `Error deleting post: ${
+              error instanceof Error ? error.message : "Unknown error"
+            }`
+          );
+        }
       }
-    }
-  };
+    },
+    [deletePostMutation]
+  );
+
+  // Memoize sorted posts to prevent unnecessary re-sorting
+  const sortedPosts = useMemo(() => {
+    return [...posts].sort((a, b) => b.id - a.id);
+  }, [posts]);
 
   if (isLoading) {
     return (
@@ -72,7 +80,7 @@ const PostsPage: React.FC = () => {
       ) : (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
           <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-            {posts.map((post: Post) => (
+            {sortedPosts.map((post: Post) => (
               <li
                 key={post.id}
                 className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700"

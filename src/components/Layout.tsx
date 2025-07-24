@@ -7,7 +7,7 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = React.memo(({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       <Header />
@@ -15,6 +15,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Footer />
     </div>
   );
-};
+});
+
+Layout.displayName = "Layout";
 
 export default Layout;

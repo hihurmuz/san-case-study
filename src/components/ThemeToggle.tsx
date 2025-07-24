@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "@/providers/ThemeProvider";
 
-const ThemeToggle: React.FC = () => {
+const ThemeToggle: React.FC = React.memo(() => {
   const { resolvedTheme, toggleTheme } = useTheme();
 
   return (
@@ -48,6 +48,8 @@ const ThemeToggle: React.FC = () => {
       </button>
     </div>
   );
-};
+});
+
+ThemeToggle.displayName = "ThemeToggle";
 
 export default ThemeToggle;

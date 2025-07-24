@@ -1,32 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
 import { useNavigation } from "@/utils/navigationGenerator";
 import { usePermissions } from "@/hooks/usePermissions";
 import ThemeToggle from "./ThemeToggle";
 
-const Header: React.FC = () => {
+const Header: React.FC = React.memo(() => {
   const { isAuthenticated, logout, user } = useAuth();
   const { canCreatePost } = usePermissions();
   const nav = useNavigation();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Helper to check if a link is active
-  const isActive = (path: string) => {
-    if (path === "/") {
-      return location.pathname === "/";
-    }
-    return location.pathname.startsWith(path);
-  };
+  // Helper to check if a link is active - memoized for performance
+  const isActive = useCallback(
+    (path: string) => {
+      if (path === "/") {
+        return location.pathname === "/";
+      }
+      return location.pathname.startsWith(path);
+    },
+    [location.pathname]
+  );
 
-  // Handle logout
-  const handleLogout = () => {
+  // Handle logout - memoized to prevent unnecessary re-renders
+  const handleLogout = useCallback(() => {
     if (window.confirm("Are you sure you want to logout?")) {
       logout();
       // Redirect is handled by AuthProvider
     }
-  };
+  }, [logout]);
+
+  // Memoize navigation links to prevent recalculation
+  const navigationLinks = useMemo(
+    () => [
+      {
+        to: nav.dashboard.get(),
+        label: "Dashboard",
+        isActive: isActive("/") && !isActive("/posts"),
+      },
+      {
+        to: nav.posts.get(),
+        label: "Posts",
+        isActive: isActive("/posts"),
+      },
+      ...(canCreatePost()
+        ? [
+            {
+              to: nav.createPost.get(),
+              label: "Create Post",
+              isActive: isActive("/posts/create"),
+            },
+          ]
+        : []),
+    ],
+    [nav, isActive, canCreatePost]
+  );
 
   return (
     <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
@@ -59,38 +88,19 @@ const Header: React.FC = () => {
 
             {isAuthenticated && (
               <nav className="hidden md:flex ml-8 space-x-6">
-                <Link
-                  to={nav.dashboard.get()}
-                  className={`${
-                    isActive("/") && !isActive("/posts")
-                      ? "text-blue-600 dark:text-blue-400 font-medium"
-                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  } transition`}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to={nav.posts.get()}
-                  className={`${
-                    isActive("/posts")
-                      ? "text-blue-600 dark:text-blue-400 font-medium"
-                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  } transition`}
-                >
-                  Posts
-                </Link>
-                {canCreatePost() && (
+                {navigationLinks.map((link) => (
                   <Link
-                    to={nav.createPost.get()}
+                    key={link.to}
+                    to={link.to}
                     className={`${
-                      isActive("/posts/create")
+                      link.isActive
                         ? "text-blue-600 dark:text-blue-400 font-medium"
                         : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     } transition`}
                   >
-                    Create Post
+                    {link.label}
                   </Link>
-                )}
+                ))}
               </nav>
             )}
           </div>
@@ -153,41 +163,20 @@ const Header: React.FC = () => {
         <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-2">
           <div className="container mx-auto px-4">
             <nav className="flex flex-col space-y-3 py-3">
-              <Link
-                to={nav.dashboard.get()}
-                className={`${
-                  isActive("/") && !isActive("/posts")
-                    ? "text-blue-600 dark:text-blue-400 font-medium"
-                    : "text-gray-700 dark:text-gray-300"
-                } py-2`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Dashboard
-              </Link>
-              <Link
-                to={nav.posts.get()}
-                className={`${
-                  isActive("/posts") && !isActive("/posts/create")
-                    ? "text-blue-600 dark:text-blue-400 font-medium"
-                    : "text-gray-700 dark:text-gray-300"
-                } py-2`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Posts
-              </Link>
-              {canCreatePost() && (
+              {navigationLinks.map((link) => (
                 <Link
-                  to={nav.createPost.get()}
+                  key={link.to}
+                  to={link.to}
                   className={`${
-                    isActive("/posts/create")
+                    link.isActive
                       ? "text-blue-600 dark:text-blue-400 font-medium"
                       : "text-gray-700 dark:text-gray-300"
                   } py-2`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Create Post
+                  {link.label}
                 </Link>
-              )}
+              ))}
               <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">
@@ -207,6 +196,8 @@ const Header: React.FC = () => {
       )}
     </header>
   );
-};
+});
+
+Header.displayName = "Header";
 
 export default Header;

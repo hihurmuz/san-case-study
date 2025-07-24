@@ -23,14 +23,28 @@ const queryClient = new QueryClient({
   },
 });
 
-// Lazy load pages
-const LoginPage = React.lazy(() => import("./pages/LoginPage"));
-const DashboardPage = React.lazy(() => import("./pages/DashboardPage"));
-const PostsPage = React.lazy(() => import("./pages/PostsPage"));
-const PostPage = React.lazy(() => import("./pages/PostPage"));
-const CreatePostPage = React.lazy(() => import("./pages/CreatePostPage"));
-const ForbiddenPage = React.lazy(() => import("./pages/ForbiddenPage"));
-const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
+// Lazy load pages with chunk names for better debugging
+const LoginPage = React.lazy(
+  () => import(/* webpackChunkName: "login" */ "./pages/LoginPage")
+);
+const DashboardPage = React.lazy(
+  () => import(/* webpackChunkName: "dashboard" */ "./pages/DashboardPage")
+);
+const PostsPage = React.lazy(
+  () => import(/* webpackChunkName: "posts" */ "./pages/PostsPage")
+);
+const PostPage = React.lazy(
+  () => import(/* webpackChunkName: "post-detail" */ "./pages/PostPage")
+);
+const CreatePostPage = React.lazy(
+  () => import(/* webpackChunkName: "create-post" */ "./pages/CreatePostPage")
+);
+const ForbiddenPage = React.lazy(
+  () => import(/* webpackChunkName: "error-pages" */ "./pages/ForbiddenPage")
+);
+const NotFoundPage = React.lazy(
+  () => import(/* webpackChunkName: "error-pages" */ "./pages/NotFoundPage")
+);
 
 // Fallback loading component
 const LoadingFallback = () => (

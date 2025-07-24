@@ -1,45 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreatePost } from "@/hooks/usePosts";
 import { useNavigation } from "@/utils/navigationGenerator";
+import {
+  createPostSchema,
+  type CreatePostFormData,
+} from "@/schemas/postSchemas";
+import FormInput from "@/components/forms/FormInput";
+import FormTextarea from "@/components/forms/FormTextarea";
+import FormButton from "@/components/forms/FormButton";
 
 const CreatePostPage: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [formError, setFormError] = useState("");
-
   const createPostMutation = useCreatePost();
   const navigate = useNavigate();
   const nav = useNavigation();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormError("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<CreatePostFormData>({
+    resolver: zodResolver(createPostSchema),
+  });
 
-    // Validate form
-    if (!title.trim()) {
-      setFormError("Title is required");
-      return;
-    }
-
-    if (!body.trim()) {
-      setFormError("Content is required");
-      return;
-    }
-
+  const onSubmit = async (data: CreatePostFormData) => {
     try {
       const newPost = await createPostMutation.mutateAsync({
-        title,
-        body,
+        title: data.title,
+        body: data.body,
         userId: 1, // Using dummy user ID for JSONPlaceholder API
       });
 
       // Navigate to the newly created post
       navigate(nav.post.get({ id: newPost.id }));
     } catch (error) {
-      setFormError(
-        error instanceof Error ? error.message : "Failed to create post"
-      );
+      setError("root", {
+        message:
+          error instanceof Error ? error.message : "Failed to create post",
+      });
     }
   };
 
@@ -58,46 +59,29 @@ const CreatePostPage: React.FC = () => {
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {formError && (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {errors.root && (
             <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
-              {formError}
+              {errors.root.message}
             </div>
           )}
 
-          <div>
-            <label
-              htmlFor="title"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100"
-              placeholder="Post title"
-            />
-          </div>
+          <FormInput
+            label="Title"
+            placeholder="Post title"
+            registration={register("title")}
+            error={errors.title?.message}
+            required
+          />
 
-          <div>
-            <label
-              htmlFor="body"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Content
-            </label>
-            <textarea
-              id="body"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              rows={8}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100"
-              placeholder="Post content"
-            />
-          </div>
+          <FormTextarea
+            label="Content"
+            placeholder="Post content"
+            rows={8}
+            registration={register("body")}
+            error={errors.body?.message}
+            required
+          />
 
           <div className="flex justify-end space-x-3">
             <Link
@@ -106,13 +90,14 @@ const CreatePostPage: React.FC = () => {
             >
               Cancel
             </Link>
-            <button
+            <FormButton
               type="submit"
-              disabled={createPostMutation.isPending}
-              className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
+              variant="primary"
+              loading={isSubmitting || createPostMutation.isPending}
+              disabled={isSubmitting || createPostMutation.isPending}
             >
-              {createPostMutation.isPending ? "Creating..." : "Create Post"}
-            </button>
+              Create Post
+            </FormButton>
           </div>
         </form>
       </div>

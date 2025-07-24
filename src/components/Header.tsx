@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
 import { useNavigation } from "@/utils/navigationGenerator";
 import { usePermissions } from "@/hooks/usePermissions";
+import ThemeToggle from "./ThemeToggle";
 
 const Header: React.FC = () => {
   const { isAuthenticated, logout, user } = useAuth();
@@ -28,14 +29,14 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-10">
+    <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Desktop Navigation */}
           <div className="flex items-center">
             <Link
               to="/"
-              className="text-xl font-bold text-blue-600 flex items-center"
+              className="text-xl font-bold text-blue-600 dark:text-blue-400 flex items-center"
             >
               <span className="mr-2">
                 <svg
@@ -62,8 +63,8 @@ const Header: React.FC = () => {
                   to={nav.dashboard.get()}
                   className={`${
                     isActive("/") && !isActive("/posts")
-                      ? "text-blue-600 font-medium"
-                      : "text-gray-700 hover:text-blue-600"
+                      ? "text-blue-600 dark:text-blue-400 font-medium"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   } transition`}
                 >
                   Dashboard
@@ -72,8 +73,8 @@ const Header: React.FC = () => {
                   to={nav.posts.get()}
                   className={`${
                     isActive("/posts")
-                      ? "text-blue-600 font-medium"
-                      : "text-gray-700 hover:text-blue-600"
+                      ? "text-blue-600 dark:text-blue-400 font-medium"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   } transition`}
                 >
                   Posts
@@ -83,8 +84,8 @@ const Header: React.FC = () => {
                     to={nav.createPost.get()}
                     className={`${
                       isActive("/posts/create")
-                        ? "text-blue-600 font-medium"
-                        : "text-gray-700 hover:text-blue-600"
+                        ? "text-blue-600 dark:text-blue-400 font-medium"
+                        : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     } transition`}
                   >
                     Create Post
@@ -94,26 +95,30 @@ const Header: React.FC = () => {
             )}
           </div>
 
-          {/* User Info and Logout */}
-          {isAuthenticated && (
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="text-sm text-gray-600">
-                <span className="font-medium">{user?.name}</span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition"
-              >
-                Logout
-              </button>
-            </div>
-          )}
+          {/* Theme Toggle and User Info */}
+          <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
+            {isAuthenticated && (
+              <>
+                <div className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="font-medium">{user?.name}</span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded transition"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 focus:outline-none"
+              className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -145,15 +150,15 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && isAuthenticated && (
-        <div className="md:hidden bg-white border-t border-gray-200 py-2">
+        <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-2">
           <div className="container mx-auto px-4">
             <nav className="flex flex-col space-y-3 py-3">
               <Link
                 to={nav.dashboard.get()}
                 className={`${
                   isActive("/") && !isActive("/posts")
-                    ? "text-blue-600 font-medium"
-                    : "text-gray-700"
+                    ? "text-blue-600 dark:text-blue-400 font-medium"
+                    : "text-gray-700 dark:text-gray-300"
                 } py-2`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -163,8 +168,8 @@ const Header: React.FC = () => {
                 to={nav.posts.get()}
                 className={`${
                   isActive("/posts") && !isActive("/posts/create")
-                    ? "text-blue-600 font-medium"
-                    : "text-gray-700"
+                    ? "text-blue-600 dark:text-blue-400 font-medium"
+                    : "text-gray-700 dark:text-gray-300"
                 } py-2`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -175,22 +180,22 @@ const Header: React.FC = () => {
                   to={nav.createPost.get()}
                   className={`${
                     isActive("/posts/create")
-                      ? "text-blue-600 font-medium"
-                      : "text-gray-700"
+                      ? "text-blue-600 dark:text-blue-400 font-medium"
+                      : "text-gray-700 dark:text-gray-300"
                   } py-2`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Create Post
                 </Link>
               )}
-              <div className="border-t border-gray-200 pt-3 mt-2">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 font-medium">
+                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">
                     {user?.name}
                   </span>
                   <button
                     onClick={handleLogout}
-                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded text-sm"
+                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded text-sm"
                   >
                     Logout
                   </button>

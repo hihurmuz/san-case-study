@@ -1,11 +1,14 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/providers/AuthProvider";
 import { useNavigation } from "@/utils/navigationGenerator";
 import { usePermissions } from "@/hooks/usePermissions";
 import ThemeToggle from "./ThemeToggle";
+import LanguageSelector from "./LanguageSelector";
 
 const Header: React.FC = React.memo(() => {
+  const { t } = useTranslation();
   const { isAuthenticated, logout, user } = useAuth();
   const { canCreatePost } = usePermissions();
   const nav = useNavigation();
@@ -25,36 +28,40 @@ const Header: React.FC = React.memo(() => {
 
   // Handle logout - memoized to prevent unnecessary re-renders
   const handleLogout = useCallback(() => {
-    if (window.confirm("Are you sure you want to logout?")) {
+    if (
+      window.confirm(
+        t("auth.confirmLogout", "Are you sure you want to logout?")
+      )
+    ) {
       logout();
       // Redirect is handled by AuthProvider
     }
-  }, [logout]);
+  }, [logout, t]);
 
   // Memoize navigation links to prevent recalculation
   const navigationLinks = useMemo(
     () => [
       {
         to: nav.dashboard.get(),
-        label: "Dashboard",
+        label: t("navigation.dashboard"),
         isActive: isActive("/") && !isActive("/posts"),
       },
       {
         to: nav.posts.get(),
-        label: "Posts",
+        label: t("navigation.posts"),
         isActive: isActive("/posts"),
       },
       ...(canCreatePost()
         ? [
             {
               to: nav.createPost.get(),
-              label: "Create Post",
+              label: t("navigation.createPost"),
               isActive: isActive("/posts/create"),
             },
           ]
         : []),
     ],
-    [nav, isActive, canCreatePost]
+    [nav, isActive, canCreatePost, t]
   );
 
   return (
@@ -105,9 +112,10 @@ const Header: React.FC = React.memo(() => {
             )}
           </div>
 
-          {/* Theme Toggle and User Info */}
+          {/* Theme Toggle, Language Selector and User Info */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
+            <LanguageSelector />
             {isAuthenticated && (
               <>
                 <div className="text-sm text-gray-600 dark:text-gray-300">
@@ -117,7 +125,7 @@ const Header: React.FC = React.memo(() => {
                   onClick={handleLogout}
                   className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded transition"
                 >
-                  Logout
+                  {t("navigation.logout")}
                 </button>
               </>
             )}
@@ -126,6 +134,7 @@ const Header: React.FC = React.memo(() => {
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
             <ThemeToggle />
+            <LanguageSelector />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
@@ -186,7 +195,7 @@ const Header: React.FC = React.memo(() => {
                     onClick={handleLogout}
                     className="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded text-sm"
                   >
-                    Logout
+                    {t("navigation.logout")}
                   </button>
                 </div>
               </div>

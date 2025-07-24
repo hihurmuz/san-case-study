@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/providers/AuthProvider";
 
 interface LocationState {
@@ -9,6 +10,7 @@ interface LocationState {
 }
 
 const LoginPage: React.FC = () => {
+  const { t } = useTranslation();
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,24 +34,27 @@ const LoginPage: React.FC = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-8 bg-white rounded-lg shadow-md max-w-md w-full">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-md max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome</h1>
-          <p className="text-gray-600">
-            Sign in to access the React SPA with routing and authentication
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+            {t("auth.welcome")}
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            {t("auth.signInDescription")}
           </p>
         </div>
 
         <div className="space-y-6">
-          <div className="bg-blue-50 p-4 rounded-md border border-blue-100">
-            <h2 className="text-lg font-medium text-blue-800 mb-2">
-              Demo User
+          <div className="bg-blue-50 dark:bg-blue-900 p-4 rounded-md border border-blue-100 dark:border-blue-800">
+            <h2 className="text-lg font-medium text-blue-800 dark:text-blue-200 mb-2">
+              {t("auth.demoUser")}
             </h2>
-            <p className="text-sm text-blue-700">
-              <strong>Name:</strong> John Doe
+            <p className="text-sm text-blue-700 dark:text-blue-300">
+              <strong>{t("auth.name")}:</strong> John Doe
               <br />
-              <strong>Permissions:</strong> VIEW_POSTS, VIEW_COMMENTS
+              <strong>{t("auth.permissions")}:</strong> VIEW_POSTS,
+              VIEW_COMMENTS
             </p>
           </div>
 
@@ -57,12 +62,11 @@ const LoginPage: React.FC = () => {
             onClick={handleLogin}
             className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition duration-200 flex items-center justify-center"
           >
-            Sign in as John Doe
+            {t("auth.signInAsJohnDoe")}
           </button>
 
-          <p className="text-sm text-gray-500 text-center">
-            This is a demo application. Click the button above to sign in with a
-            dummy user.
+          <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+            {t("auth.demoDescription")}
           </p>
         </div>
       </div>

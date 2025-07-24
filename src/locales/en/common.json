@@ -1,0 +1,93 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "posts": "Posts",
+    "createPost": "Create Post",
+    "logout": "Logout"
+  },
+  "auth": {
+    "welcome": "Welcome",
+    "signIn": "Sign In",
+    "signInDescription": "Sign in to access the React SPA with routing and authentication",
+    "demoUser": "Demo User",
+    "name": "Name",
+    "permissions": "Permissions",
+    "signInAsJohnDoe": "Sign in as John Doe",
+    "demoDescription": "This is a demo application. Click the button above to sign in with a dummy user.",
+    "username": "Username",
+    "password": "Password",
+    "enterUsername": "Enter username",
+    "enterPassword": "Enter password",
+    "or": "Or",
+    "demoCredentials": "Demo Credentials",
+    "allPermissions": "All permissions",
+    "quickDemoLogin": "Quick Demo Login",
+    "jwtDescription": "This demo uses JWT tokens with automatic refresh and secure storage."
+  },
+  "posts": {
+    "title": "Posts",
+    "createNewPost": "Create New Post",
+    "noPostsAvailable": "No posts available",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "backToPosts": "Back to Posts",
+    "editPost": "Edit Post",
+    "comments": "Comments",
+    "postTitle": "Post title",
+    "content": "Content",
+    "postContent": "Post content",
+    "cancel": "Cancel",
+    "createPost": "Create Post",
+    "creating": "Creating...",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "postUpdatedSuccessfully": "Post updated successfully!",
+    "createNewPostTitle": "Create New Post"
+  },
+  "comments": {
+    "comments": "Comments",
+    "noComments": "No comments available",
+    "loadingComments": "Loading comments..."
+  },
+  "dashboard": {
+    "recentPosts": "Recent Posts",
+    "recentComments": "Recent Comments",
+    "viewAll": "View All",
+    "noRecentPosts": "No recent posts available",
+    "noRecentComments": "No recent comments available"
+  },
+  "errors": {
+    "pageNotFound": "Page Not Found",
+    "pageNotFoundDescription": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "goToHome": "Go to Home",
+    "goBack": "Go Back",
+    "forbidden": "Forbidden",
+    "forbiddenDescription": "You don't have permission to access this page.",
+    "errorLoadingPosts": "Error loading posts",
+    "errorLoadingPost": "Error loading post",
+    "postNotFound": "Post not found",
+    "returnToPosts": "Return to posts",
+    "unknownError": "Unknown error"
+  },
+  "common": {
+    "loading": "Loading...",
+    "authenticating": "Authenticating...",
+    "loadingTranslations": "Loading translations...",
+    "required": "required",
+    "signIn": "Sign In",
+    "language": "Language"
+  },
+  "validation": {
+    "titleRequired": "Title is required",
+    "titleMinLength": "Title must be at least 3 characters",
+    "titleMaxLength": "Title must be less than 100 characters",
+    "contentRequired": "Content is required",
+    "contentMinLength": "Content must be at least 10 characters",
+    "contentMaxLength": "Content must be less than 1000 characters",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "invalidCredentials": "Invalid credentials",
+    "loginFailed": "Login failed"
+  }
+}

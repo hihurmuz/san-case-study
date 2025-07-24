@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "react-i18next";
 import { useUpdatePost } from "@/hooks/usePosts";
 import { editPostSchema, type EditPostFormData } from "@/schemas/postSchemas";
 import FormInput from "@/components/forms/FormInput";
@@ -13,6 +14,7 @@ interface EditPostTabProps {
 }
 
 const EditPostTab: React.FC<EditPostTabProps> = ({ post }) => {
+  const { t } = useTranslation();
   const [successMessage, setSuccessMessage] = useState("");
   const updatePostMutation = useUpdatePost();
 
@@ -37,11 +39,13 @@ const EditPostTab: React.FC<EditPostTabProps> = ({ post }) => {
         id: post.id,
         post: { title: data.title, body: data.body, userId: post.userId },
       });
-      setSuccessMessage("Post updated successfully!");
+      setSuccessMessage(t("posts.postUpdatedSuccessfully"));
     } catch (error) {
       setError("root", {
         message:
-          error instanceof Error ? error.message : "Failed to update post",
+          error instanceof Error
+            ? error.message
+            : t("posts.updateFailed", "Failed to update post"),
       });
     }
   };
@@ -62,16 +66,16 @@ const EditPostTab: React.FC<EditPostTabProps> = ({ post }) => {
         )}
 
         <FormInput
-          label="Title"
-          placeholder="Post title"
+          label={t("posts.postTitle")}
+          placeholder={t("posts.postTitle")}
           registration={register("title")}
           error={errors.title?.message}
           required
         />
 
         <FormTextarea
-          label="Content"
-          placeholder="Post content"
+          label={t("posts.content")}
+          placeholder={t("posts.postContent")}
           rows={8}
           registration={register("body")}
           error={errors.body?.message}
@@ -85,7 +89,7 @@ const EditPostTab: React.FC<EditPostTabProps> = ({ post }) => {
           disabled={isSubmitting || updatePostMutation.isPending}
           className="w-full"
         >
-          Save Changes
+          {t("posts.saveChanges")}
         </FormButton>
       </form>
     </div>

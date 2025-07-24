@@ -1,11 +1,13 @@
 import React, { useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { usePosts, useDeletePost } from "@/hooks/usePosts";
 import { useNavigation } from "@/utils/navigationGenerator";
 import { usePermissions } from "@/hooks/usePermissions";
 import type { Post } from "@/types/index";
 
 const PostsPage: React.FC = () => {
+  const { t } = useTranslation();
   const { data: posts = [], isLoading, error } = usePosts();
   const deletePostMutation = useDeletePost();
   const nav = useNavigation();
@@ -13,20 +15,24 @@ const PostsPage: React.FC = () => {
 
   const handleDelete = useCallback(
     async (id: number) => {
-      if (window.confirm("Are you sure you want to delete this post?")) {
+      if (
+        window.confirm(
+          t("posts.confirmDelete", "Are you sure you want to delete this post?")
+        )
+      ) {
         try {
           await deletePostMutation.mutateAsync(id);
-          alert("Post deleted successfully");
+          alert(t("posts.deleteSuccess", "Post deleted successfully"));
         } catch (error) {
           alert(
-            `Error deleting post: ${
-              error instanceof Error ? error.message : "Unknown error"
+            `${t("errors.errorLoadingPosts")}: ${
+              error instanceof Error ? error.message : t("errors.unknownError")
             }`
           );
         }
       }
     },
-    [deletePostMutation]
+    [deletePostMutation, t]
   );
 
   // Memoize sorted posts to prevent unnecessary re-sorting
@@ -48,9 +54,9 @@ const PostsPage: React.FC = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded">
-          <p className="font-medium">Error loading posts</p>
+          <p className="font-medium">{t("errors.errorLoadingPosts")}</p>
           <p className="text-sm">
-            {error instanceof Error ? error.message : "Unknown error"}
+            {error instanceof Error ? error.message : t("errors.unknownError")}
           </p>
         </div>
       </div>
@@ -61,21 +67,21 @@ const PostsPage: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-          Posts
+          {t("posts.title")}
         </h1>
         {canEditPost() && (
           <Link
             to={nav.createPost.get()}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
           >
-            Create New Post
+            {t("posts.createNewPost")}
           </Link>
         )}
       </div>
 
       {posts.length === 0 ? (
         <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-          No posts available
+          {t("posts.noPostsAvailable")}
         </div>
       ) : (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
@@ -104,7 +110,7 @@ const PostsPage: React.FC = () => {
                         to={nav.postEdit.get({ id: post.id })}
                         className="px-3 py-1 bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 rounded hover:bg-green-200 dark:hover:bg-green-700 transition"
                       >
-                        Edit
+                        {t("posts.edit")}
                       </Link>
                       <button
                         onClick={() => handleDelete(post.id)}
@@ -113,8 +119,8 @@ const PostsPage: React.FC = () => {
                       >
                         {deletePostMutation.isPending &&
                         post.id === deletePostMutation.variables
-                          ? "Deleting..."
-                          : "Delete"}
+                          ? t("posts.deleting")
+                          : t("posts.delete")}
                       </button>
                     </div>
                   )}

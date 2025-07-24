@@ -1,0 +1,93 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "posts": "Beiträge",
+    "createPost": "Beitrag Erstellen",
+    "logout": "Abmelden"
+  },
+  "auth": {
+    "welcome": "Willkommen",
+    "signIn": "Anmelden",
+    "signInDescription": "Melden Sie sich an, um auf die React SPA mit Routing und Authentifizierung zuzugreifen",
+    "demoUser": "Demo Benutzer",
+    "name": "Name",
+    "permissions": "Berechtigungen",
+    "signInAsJohnDoe": "Als John Doe anmelden",
+    "demoDescription": "Dies ist eine Demo-Anwendung. Klicken Sie auf die Schaltfläche oben, um sich mit einem Dummy-Benutzer anzumelden.",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "enterUsername": "Benutzername eingeben",
+    "enterPassword": "Passwort eingeben",
+    "or": "Oder",
+    "demoCredentials": "Demo Anmeldedaten",
+    "allPermissions": "Alle Berechtigungen",
+    "quickDemoLogin": "Schnelle Demo Anmeldung",
+    "jwtDescription": "Diese Demo verwendet JWT-Token mit automatischer Aktualisierung und sicherer Speicherung."
+  },
+  "posts": {
+    "title": "Beiträge",
+    "createNewPost": "Neuen Beitrag Erstellen",
+    "noPostsAvailable": "Keine Beiträge verfügbar",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "deleting": "Wird gelöscht...",
+    "backToPosts": "Zurück zu Beiträgen",
+    "editPost": "Beitrag Bearbeiten",
+    "comments": "Kommentare",
+    "postTitle": "Beitragstitel",
+    "content": "Inhalt",
+    "postContent": "Beitragsinhalt",
+    "cancel": "Abbrechen",
+    "createPost": "Beitrag Erstellen",
+    "creating": "Wird erstellt...",
+    "saveChanges": "Änderungen Speichern",
+    "saving": "Wird gespeichert...",
+    "postUpdatedSuccessfully": "Beitrag erfolgreich aktualisiert!",
+    "createNewPostTitle": "Neuen Beitrag Erstellen"
+  },
+  "comments": {
+    "comments": "Kommentare",
+    "noComments": "Keine Kommentare verfügbar",
+    "loadingComments": "Kommentare werden geladen..."
+  },
+  "dashboard": {
+    "recentPosts": "Neueste Beiträge",
+    "recentComments": "Neueste Kommentare",
+    "viewAll": "Alle Anzeigen",
+    "noRecentPosts": "Keine neuen Beiträge verfügbar",
+    "noRecentComments": "Keine neuen Kommentare verfügbar"
+  },
+  "errors": {
+    "pageNotFound": "Seite Nicht Gefunden",
+    "pageNotFoundDescription": "Die gesuchte Seite wurde möglicherweise entfernt, umbenannt oder ist vorübergehend nicht verfügbar.",
+    "goToHome": "Zur Startseite",
+    "goBack": "Zurück",
+    "forbidden": "Verboten",
+    "forbiddenDescription": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.",
+    "errorLoadingPosts": "Fehler beim Laden der Beiträge",
+    "errorLoadingPost": "Fehler beim Laden des Beitrags",
+    "postNotFound": "Beitrag nicht gefunden",
+    "returnToPosts": "Zurück zu Beiträgen",
+    "unknownError": "Unbekannter Fehler"
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "authenticating": "Authentifizierung...",
+    "loadingTranslations": "Übersetzungen werden geladen...",
+    "required": "erforderlich",
+    "signIn": "Anmelden",
+    "language": "Sprache"
+  },
+  "validation": {
+    "titleRequired": "Titel ist erforderlich",
+    "titleMinLength": "Titel muss mindestens 3 Zeichen lang sein",
+    "titleMaxLength": "Titel muss weniger als 100 Zeichen lang sein",
+    "contentRequired": "Inhalt ist erforderlich",
+    "contentMinLength": "Inhalt muss mindestens 10 Zeichen lang sein",
+    "contentMaxLength": "Inhalt muss weniger als 1000 Zeichen lang sein",
+    "usernameRequired": "Benutzername ist erforderlich",
+    "passwordRequired": "Passwort ist erforderlich",
+    "invalidCredentials": "Ungültige Anmeldedaten",
+    "loginFailed": "Anmeldung fehlgeschlagen"
+  }
+}

@@ -7,6 +7,7 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import ErrorBoundary from "./components/ErrorBoundary";
+import "./i18n"; // Initialize i18n
 
 // Create a client
 const queryClient = new QueryClient({

@@ -1,0 +1,93 @@
+{
+  "navigation": {
+    "dashboard": "Ana Sayfa",
+    "posts": "Gönderiler",
+    "createPost": "Gönderi Oluştur",
+    "logout": "Çıkış Yap"
+  },
+  "auth": {
+    "welcome": "Hoş Geldiniz",
+    "signIn": "Giriş Yapın",
+    "signInDescription": "Routing ve kimlik doğrulama özellikli React SPA'ya erişmek için giriş yapın",
+    "demoUser": "Demo Kullanıcı",
+    "name": "İsim",
+    "permissions": "İzinler",
+    "signInAsJohnDoe": "John Doe olarak giriş yap",
+    "demoDescription": "Bu bir demo uygulamadır. Dummy kullanıcı ile giriş yapmak için yukarıdaki butona tıklayın.",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "enterUsername": "Kullanıcı adını girin",
+    "enterPassword": "Şifreyi girin",
+    "or": "Veya",
+    "demoCredentials": "Demo Bilgileri",
+    "allPermissions": "Tüm izinler",
+    "quickDemoLogin": "Hızlı Demo Girişi",
+    "jwtDescription": "Bu demo JWT token'ları otomatik yenileme ve güvenli depolama ile kullanır."
+  },
+  "posts": {
+    "title": "Gönderiler",
+    "createNewPost": "Yeni Gönderi Oluştur",
+    "noPostsAvailable": "Gönderi bulunamadı",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "deleting": "Siliniyor...",
+    "backToPosts": "Gönderilere Dön",
+    "editPost": "Gönderiyi Düzenle",
+    "comments": "Yorumlar",
+    "postTitle": "Gönderi Başlığı",
+    "content": "İçerik",
+    "postContent": "Gönderi içeriği",
+    "cancel": "İptal",
+    "createPost": "Gönderi Oluştur",
+    "creating": "Oluşturuluyor...",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "saving": "Kaydediliyor...",
+    "postUpdatedSuccessfully": "Gönderi başarıyla güncellendi!",
+    "createNewPostTitle": "Yeni Gönderi Oluştur"
+  },
+  "comments": {
+    "comments": "Yorumlar",
+    "noComments": "Yorum bulunamadı",
+    "loadingComments": "Yorumlar yükleniyor..."
+  },
+  "dashboard": {
+    "recentPosts": "Son Gönderiler",
+    "recentComments": "Son Yorumlar",
+    "viewAll": "Tümünü Görüntüle",
+    "noRecentPosts": "Son gönderi bulunamadı",
+    "noRecentComments": "Son yorum bulunamadı"
+  },
+  "errors": {
+    "pageNotFound": "Sayfa Bulunamadı",
+    "pageNotFoundDescription": "Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir.",
+    "goToHome": "Ana Sayfaya Git",
+    "goBack": "Geri Dön",
+    "forbidden": "Yasak",
+    "forbiddenDescription": "Bu sayfaya erişim izniniz yok.",
+    "errorLoadingPosts": "Gönderiler yüklenirken hata oluştu",
+    "errorLoadingPost": "Gönderi yüklenirken hata oluştu",
+    "postNotFound": "Gönderi bulunamadı",
+    "returnToPosts": "Gönderilere dön",
+    "unknownError": "Bilinmeyen hata"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "authenticating": "Kimlik doğrulanıyor...",
+    "loadingTranslations": "Çeviriler yükleniyor...",
+    "required": "gerekli",
+    "signIn": "Giriş Yap",
+    "language": "Dil"
+  },
+  "validation": {
+    "titleRequired": "Başlık gereklidir",
+    "titleMinLength": "Başlık en az 3 karakter olmalıdır",
+    "titleMaxLength": "Başlık 100 karakterden az olmalıdır",
+    "contentRequired": "İçerik gereklidir",
+    "contentMinLength": "İçerik en az 10 karakter olmalıdır",
+    "contentMaxLength": "İçerik 1000 karakterden az olmalıdır",
+    "usernameRequired": "Kullanıcı adı gereklidir",
+    "passwordRequired": "Şifre gereklidir",
+    "invalidCredentials": "Geçersiz kimlik bilgileri",
+    "loginFailed": "Giriş başarısız"
+  }
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useLocation, Link, Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { usePost } from "@/hooks/usePosts";
 import { useNavigation } from "@/utils/navigationGenerator";
 import { usePermissions } from "@/hooks/usePermissions";
@@ -7,6 +8,7 @@ import EditPostTab from "@/components/EditPostTab";
 import PostCommentsTab from "@/components/PostCommentsTab";
 
 const PostPage: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const postId = id ? parseInt(id, 10) : 0;
@@ -44,15 +46,15 @@ const PostPage: React.FC = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-          <p className="font-medium">Error loading post</p>
+          <p className="font-medium">{t("errors.errorLoadingPost")}</p>
           <p className="text-sm">
-            {error instanceof Error ? error.message : "Post not found"}
+            {error instanceof Error ? error.message : t("errors.postNotFound")}
           </p>
           <Link
             to={nav.posts.get()}
             className="text-red-700 underline mt-2 inline-block"
           >
-            Return to posts
+            {t("errors.returnToPosts")}
           </Link>
         </div>
       </div>
@@ -66,7 +68,7 @@ const PostPage: React.FC = () => {
           to={nav.posts.get()}
           className="text-blue-600 hover:text-blue-800 transition"
         >
-          ← Back to Posts
+          ← {t("posts.backToPosts")}
         </Link>
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mt-2">
           {post.title}
@@ -85,7 +87,7 @@ const PostPage: React.FC = () => {
                   : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
               }`}
             >
-              Edit Post
+              {t("posts.editPost")}
             </Link>
           )}
 
@@ -98,7 +100,7 @@ const PostPage: React.FC = () => {
                   : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
               }`}
             >
-              Comments
+              {t("posts.comments")}
             </Link>
           )}
         </nav>
